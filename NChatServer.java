@@ -7,10 +7,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Observable;
 
-public class ChatServer extends Observable {
+public class NChatServer extends Observable {
 	public static void main(String[] args) {
 		try {
-			new ChatServer().setUpNetworking();
+			new NChatServer().setUpNetworking();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

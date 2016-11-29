@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ChatClient {
+public class NChatClient {
 	private JTextArea incoming;
 	private JTextField outgoing;
 	private BufferedReader reader;
@@ -14,31 +14,30 @@ public class ChatClient {
 	
 
 	public void run() throws Exception {
-		initView();
 		setUpNetworking();
 	}
 
-	private void initView() {
-		JFrame frame = new JFrame("Ludicrously Simple Chat Client");
-		JPanel mainPanel = new JPanel();
-		incoming = new JTextArea(15, 50);
-		incoming.setLineWrap(true);
-		incoming.setWrapStyleWord(true);
-		incoming.setEditable(false);
-		JScrollPane qScroller = new JScrollPane(incoming);
-		qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		outgoing = new JTextField(20);
-		JButton sendButton = new JButton("Send");
-		sendButton.addActionListener(new SendButtonListener());
-		mainPanel.add(qScroller);
-		mainPanel.add(outgoing);
-		mainPanel.add(sendButton);
-		frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-		frame.setSize(650, 500);
-		frame.setVisible(true);
-
-	}
+//	private void initView() {
+//		JFrame frame = new JFrame("Ludicrously Simple Chat Client");
+//		JPanel mainPanel = new JPanel();
+//		incoming = new JTextArea(15, 50);
+//		incoming.setLineWrap(true);
+//		incoming.setWrapStyleWord(true);
+//		incoming.setEditable(false);
+//		JScrollPane qScroller = new JScrollPane(incoming);
+//		qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+//		qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		outgoing = new JTextField(20);
+//		JButton sendButton = new JButton("Send");
+//		sendButton.addActionListener(new SendButtonListener());
+//		mainPanel.add(qScroller);
+//		mainPanel.add(outgoing);
+//		mainPanel.add(sendButton);
+//		frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
+//		frame.setSize(650, 500);
+//		frame.setVisible(true);
+//
+//	}
 
 	private void setUpNetworking() throws Exception {
 		@SuppressWarnings("resource")
@@ -62,7 +61,7 @@ public class ChatClient {
 
 	public static void main(String[] args) {
 		try {
-			new ChatClient().run();
+			new NChatClient().run();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
