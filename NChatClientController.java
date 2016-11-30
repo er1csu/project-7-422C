@@ -10,8 +10,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+/**
+ * Controller for the NChatClient.
+ * @author ericsu
+ *
+ */
 public class NChatClientController implements javafx.fxml.Initializable {
-
+	private NChatClient chatClient;
+	
     @FXML
     private TextField chatInputField;
 
@@ -20,7 +26,13 @@ public class NChatClientController implements javafx.fxml.Initializable {
 
     @FXML
     private TextArea mainChatDisplay;
-
+    
+    @FXML
+    private TextField userNameInputField;
+    
+    public void setChatClient(NChatClient client) {
+    	this.chatClient = client; 
+    }
     
     public void sendMessage() {
     	System.out.println("test");

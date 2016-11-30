@@ -2,6 +2,9 @@ package assignment7;
 
 import java.io.*;
 import java.net.*;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.*;
 
 import javafx.application.Application;
@@ -13,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.awt.event.*;
 
-public class NChatClient extends Application {
+public class NChatClient extends Application implements Observer {
 	private JTextField outgoing;
 	private BufferedReader reader;
 	private PrintWriter writer;
@@ -21,7 +24,11 @@ public class NChatClient extends Application {
 	private NChatClientController chatWindowController;
 	
 	
-	
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
+	}
 
 //	public void run() throws Exception {
 //		setUpNetworking();
@@ -84,6 +91,8 @@ public class NChatClient extends Application {
 			}
 		}
 	}
+
+
 
 	
 }
