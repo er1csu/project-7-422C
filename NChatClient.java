@@ -3,41 +3,45 @@ package assignment7;
 import java.io.*;
 import java.net.*;
 import javax.swing.*;
-import java.awt.*;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
 import java.awt.event.*;
 
-public class NChatClient {
-	private JTextArea incoming;
+public class NChatClient extends Application {
 	private JTextField outgoing;
 	private BufferedReader reader;
 	private PrintWriter writer;
+	private GridPane mainWindow;
+	private NChatClientController chatWindowController;
+	
+	
 	
 
-	public void run() throws Exception {
-		setUpNetworking();
-	}
-
-//	private void initView() {
-//		JFrame frame = new JFrame("Ludicrously Simple Chat Client");
-//		JPanel mainPanel = new JPanel();
-//		incoming = new JTextArea(15, 50);
-//		incoming.setLineWrap(true);
-//		incoming.setWrapStyleWord(true);
-//		incoming.setEditable(false);
-//		JScrollPane qScroller = new JScrollPane(incoming);
-//		qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//		qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-//		outgoing = new JTextField(20);
-//		JButton sendButton = new JButton("Send");
-//		sendButton.addActionListener(new SendButtonListener());
-//		mainPanel.add(qScroller);
-//		mainPanel.add(outgoing);
-//		mainPanel.add(sendButton);
-//		frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
-//		frame.setSize(650, 500);
-//		frame.setVisible(true);
-//
+//	public void run() throws Exception {
+//		setUpNetworking();
 //	}
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		FXMLLoader fxmlLoader = new FXMLLoader();
+    	mainWindow = fxmlLoader.load(getClass().getResource("NChatClient.fxml").openStream());
+        Scene scene1 = new Scene(mainWindow);
+        primaryStage.setScene(scene1);
+        primaryStage.setTitle("Chat");
+        primaryStage.show();
+		this.chatWindowController = (NChatClientController) fxmlLoader.getController();
+        try {
+        	setUpNetworking();
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+	}
 
 	private void setUpNetworking() throws Exception {
 		@SuppressWarnings("resource")
@@ -51,6 +55,7 @@ public class NChatClient {
 	}
 
 	class SendButtonListener implements ActionListener {
+		// Use update from Obserbable
 		public void actionPerformed(ActionEvent ev) {
 			writer.println(outgoing.getText());
 			writer.flush();
@@ -60,24 +65,25 @@ public class NChatClient {
 	}
 
 	public static void main(String[] args) {
-		try {
-			new NChatClient().run();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		launch(args);
+//		try {
+//			new NChatClient().run();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	class IncomingReader implements Runnable {
 		public void run() {
-			String message;
 			try {
-				while ((message = reader.readLine()) != null) {
-					
-						incoming.append(message + "\n");
+				while ((reader.readLine()) != null) {					
+						mainWindow.getChildren().get(1);
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
 	}
+
+	
 }

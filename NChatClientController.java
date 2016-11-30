@@ -1,11 +1,16 @@
 package assignment7;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
-public class NChatClientController {
+public class NChatClientController implements javafx.fxml.Initializable {
 
     @FXML
     private TextField chatInputField;
@@ -14,10 +19,19 @@ public class NChatClientController {
     private Button sendChatMessage;
 
     @FXML
-    private AnchorPane mainChatDisplay;
+    private TextArea mainChatDisplay;
+
     
-    public static void main(String args[]) {
-    	
+    public void sendMessage() {
+    	System.out.println("test");
     }
+
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+
+		
+	}
 
 }
