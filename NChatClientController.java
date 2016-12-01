@@ -1,17 +1,23 @@
 package assignment7;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 /**
  * Controller for the NChatClient.
@@ -20,10 +26,21 @@ import javafx.scene.text.TextFlow;
  *
  */
 public class NChatClientController implements javafx.fxml.Initializable {
+		
+	private UserPreferencesController prefController;
+	private Stage prefStage;
 	
-	private String userName = "Anonymous: ";
+	@FXML
+    private MenuItem prefMenuItem;
 	
-	private Color chatColor;
+	@FXML
+    void showPrefMenu(ActionEvent event) throws Exception {
+		prefStage.show();
+    }
+	
+	public UserPreferencesController getPrefCon() {
+		return this.prefController;
+	}
 	
 	@FXML
     private MenuItem quitClientMenuItem;
@@ -45,19 +62,7 @@ public class NChatClientController implements javafx.fxml.Initializable {
     @FXML
     private TextField userNameInputField;
     
-    public String getClientUserName() {
-    	String user = userNameInputField.getText();
-    	if (user.equals("")) {
-    		return "Anonymous: "; 		   		
-    	} else {
-    		this.userName = userNameInputField.getText();
-    		return this.userName + ": ";
-    	}
-    }
     
-    public void setClientUserName(String name) {
-    	this.userName = name;
-    }
     
     public TextArea getMainChatDisplay() {
     	return this.mainChatDisplay;
@@ -85,7 +90,16 @@ public class NChatClientController implements javafx.fxml.Initializable {
     
     @FXML
     void launchAboutMenu(ActionEvent event) {
-    	
+    	FlowPane pane = new FlowPane();
+    	pane.getChildren().add(new Label("Created by Eric Su & Stephen Ma"));
+    	Stage stage = new Stage();
+    	stage.setTitle("About");
+    	stage.setHeight(300);
+    	stage.setWidth(300);
+    	stage.setResizable(false);
+    	Scene scene = new Scene(pane);
+    	stage.setScene(scene);
+    	stage.show();
     }
 
     @FXML
@@ -96,6 +110,19 @@ public class NChatClientController implements javafx.fxml.Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setStyle();
+		FXMLLoader fxmlLoader = new FXMLLoader();
+    	GridPane prefWindow = null;
+		try {
+			prefWindow = fxmlLoader.load(getClass().getResource("PreferencesController.fxml").openStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        Scene scene1 = new Scene(prefWindow);
+        prefStage = new Stage();
+        prefStage.setScene(scene1);
+        prefStage.setTitle("Preferences");
+        this.prefController = (UserPreferencesController) fxmlLoader.getController();
 	}
 
 }

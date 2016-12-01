@@ -71,7 +71,7 @@ public class NChatClient extends Application implements Observer {
 			try {
 				while ((message = reader.readLine()) != null) {	
 					TextArea mainDisplay = chatWindowController.getMainChatDisplay();			
-					mainDisplay.appendText(chatWindowController.getClientUserName() + message + "\n");
+					mainDisplay.appendText(chatWindowController.getPrefCon().getClientUserName() + message + "\n");
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
