@@ -1,6 +1,7 @@
 package assignment7;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -72,7 +73,9 @@ public class NChatClientController implements javafx.fxml.Initializable {
     }
     
     public void sendMessage() {
-    	String messageText = this.chatInputField.getText();
+    	Date date = new Date();
+    	String messageText = date.toString().split(" ")[3] + " ";
+    	messageText += this.chatInputField.getText();
     	this.chatClient.getChatWriter().println(messageText);
     	this.chatClient.getChatWriter().flush();
     	this.chatInputField.setText("");
