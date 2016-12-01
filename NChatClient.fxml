@@ -51,7 +51,7 @@
                 <RowConstraints maxHeight="153.0" minHeight="10.0" prefHeight="44.88421630859375" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextArea fx:id="mainChatDisplay" editable="true" prefHeight="266.0" prefWidth="633.0" promptText="Begin group chat...." />
+                  <TextArea fx:id="mainChatDisplay" editable="true" prefHeight="266.0" prefWidth="633.0" promptText="Begin group chat...." wrapText="true" />
                   <GridPane prefHeight="21.0" prefWidth="634.0" GridPane.rowIndex="1">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="543.0" minWidth="10.0" prefWidth="535.0" />
@@ -61,7 +61,7 @@
                       <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="chatInputField" prefHeight="27.0" prefWidth="432.0" promptText="iChat">
+                        <TextField fx:id="chatInputField" onAction="#sendMessage" prefHeight="27.0" prefWidth="432.0" promptText="iChat">
                            <GridPane.margin>
                               <Insets left="17.0" />
                            </GridPane.margin></TextField>

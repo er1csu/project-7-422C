@@ -3,11 +3,18 @@ package assignment7;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class UserPreferencesController {
+	Stage parentCon;
+	
 	private String userName = "Anonymous: ";
+	
+	@FXML
+    private Button applySettingsButton;
 	
 	@FXML
     private Label userNameLabl;
@@ -32,7 +39,7 @@ public class UserPreferencesController {
     @FXML
     void applyUserSettings(ActionEvent event) {
     	this.userName = inputUserName.getText();
-    	
+    	this.parentCon.close();
     }
     
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -18,8 +19,14 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label fx:id="userNameLabl" text="Username: " />
-      <TextField fx:id="inputUserName" GridPane.columnIndex="1" />
-      <Button mnemonicParsing="false" onAction="#applyUserSettings" text="Apply" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="userNameLabl" text="Username: ">
+         <GridPane.margin>
+            <Insets left="10.0" />
+         </GridPane.margin></Label>
+      <TextField fx:id="inputUserName" onAction="#applyUserSettings" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </GridPane.margin></TextField>
+      <Button fx:id="applySettingsButton" mnemonicParsing="false" onAction="#applyUserSettings" text="Apply" GridPane.columnIndex="1" GridPane.rowIndex="2" />
    </children>
 </GridPane>
