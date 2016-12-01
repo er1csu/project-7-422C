@@ -50,6 +50,10 @@ public class NChatClientController implements javafx.fxml.Initializable {
 	public String getChatInputMessage() {
 		return this.chatInputField.getText();
 	}
+	
+	public TextField getChatInputField() {
+		return this.chatInputField;
+	}
 
 	public void sendMessage() {
 		String messageText = this.chatInputField.getText();
