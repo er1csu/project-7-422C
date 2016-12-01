@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -73,6 +74,9 @@ public class NChatClientController implements javafx.fxml.Initializable {
     }
     
     public void sendMessage() {
+    	URL resource = getClass().getResource("ding.wav");
+    	AudioClip ding = new AudioClip(resource.toString());
+    	ding.play();
     	Date date = new Date();
     	String messageText = date.toString().split(" ")[3] + " ";
     	messageText += this.chatInputField.getText();
