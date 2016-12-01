@@ -5,19 +5,18 @@ import java.net.*;
 import java.util.Observable;
 import java.util.Observer;
 
-import javax.swing.*;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.event.*;
-
+/**
+ * Chat client class, handles the logic for every chat client.
+ * @author ericsu
+ *
+ */
 public class NChatClient extends Application implements Observer {
 	Observable observable;
 	private BufferedReader reader;
@@ -30,13 +29,9 @@ public class NChatClient extends Application implements Observer {
 	public void update(Observable o, Object arg) {
 		String message = chatWindowController.getChatInputMessage();
 		writer.println(message);
-		writer.flush();
-		
+		writer.flush();		
 	}
 
-//	public void run() throws Exception {
-//		setUpNetworking();
-//	}
 	public PrintWriter getChatWriter() {
 		return this.writer;
 	}
@@ -52,8 +47,7 @@ public class NChatClient extends Application implements Observer {
 		this.chatWindowController = (NChatClientController) fxmlLoader.getController();
 		this.chatWindowController.setChatClient(this);
         try {
-        	setUpNetworking();
-        	
+        	setUpNetworking();       	
         } catch (Exception e) {
         	e.printStackTrace();
         }
@@ -70,24 +64,13 @@ public class NChatClient extends Application implements Observer {
 		readerThread.start();
 	}
 
-
-	public static void main(String[] args) {
-		launch(args);
-//		try {
-//			new NChatClient().run();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-	}
-
 	class IncomingReader implements Runnable {
 		public void run() {
 			String message;
 			try {
 				while ((message = reader.readLine()) != null) {	
 					TextArea mainDisplay = chatWindowController.getMainChatDisplay();			
-					mainDisplay.appendText(message + "\n");
-					String result = mainDisplay.getText();
+					mainDisplay.appendText(chatWindowController.getClientUserName() + message + "\n");
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -95,6 +78,9 @@ public class NChatClient extends Application implements Observer {
 		}
 	}
 
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 
 	
