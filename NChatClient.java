@@ -48,7 +48,8 @@ public class NChatClient extends Application implements Observer {
 		this.chatWindowController = (NChatClientController) fxmlLoader.getController();
 		this.chatWindowController.setChatClient(this);
         try {
-        	setUpNetworking();       	
+        	setUpNetworking();
+        	this.chatWindowController.getChatInputField().requestFocus();
         } catch (Exception e) {
         	e.printStackTrace();
         }

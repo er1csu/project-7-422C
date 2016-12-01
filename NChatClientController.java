@@ -2,6 +2,7 @@ package assignment7;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -30,6 +32,10 @@ public class NChatClientController implements javafx.fxml.Initializable {
 	private UserPreferencesController prefController;
 	private Stage prefStage;
 	
+	public Stage getPrefStage() {
+		return this.prefStage;
+	}
+	
 	@FXML
     private MenuItem prefMenuItem;
 	
@@ -44,7 +50,7 @@ public class NChatClientController implements javafx.fxml.Initializable {
 	
 	@FXML
     private MenuItem quitClientMenuItem;
-
+	
     @FXML
     private MenuItem aboutMenu;
 	
@@ -77,7 +83,17 @@ public class NChatClientController implements javafx.fxml.Initializable {
     }
     
     public void sendMessage() {
-    	String messageText = this.chatInputField.getText();
+    	URL resource = getClass().getResource("ding.wav");
+    	AudioClip ding = new AudioClip(resource.toString());
+    	ding.play();
+    	Date date = new Date();
+    	String userName = getPrefCon().getClientUserName();
+    	String messageText = "[" + date.toString().split(" ")[3] + "] ";
+    	if (this.chatInputField.getText().length() == 0) {
+    		this.chatInputField.setText("<No_text_entered>");
+    	}
+    	messageText += userName + ": ";
+    	messageText += this.chatInputField.getText();
     	this.chatClient.getChatWriter().println(messageText);
     	this.chatClient.getChatWriter().flush();
     	this.chatInputField.setText("");
@@ -87,7 +103,11 @@ public class NChatClientController implements javafx.fxml.Initializable {
     public void setStyle() {
 		sendChatMessage.setStyle("-fx-background-color: rgb(14,122,254); -fx-text-fill: rgb(255,255,255);");
 	}
-    
+	public TextField getChatInputField() {
+		return this.chatInputField;
+	}
+
+
     @FXML
     void launchAboutMenu(ActionEvent event) {
     	FlowPane pane = new FlowPane();
@@ -122,7 +142,9 @@ public class NChatClientController implements javafx.fxml.Initializable {
         prefStage = new Stage();
         prefStage.setScene(scene1);
         prefStage.setTitle("Preferences");
+        
         this.prefController = (UserPreferencesController) fxmlLoader.getController();
+        this.prefController.parentCon = prefStage;
 	}
 
 }
