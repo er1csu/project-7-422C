@@ -11,28 +11,35 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.event.*;
 
 public class NChatClient extends Application implements Observer {
-	private JTextField outgoing;
+	Observable observable;
 	private BufferedReader reader;
 	private PrintWriter writer;
-	private GridPane mainWindow;
+	private VBox mainWindow;
 	private NChatClientController chatWindowController;
 	
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		String message = chatWindowController.getChatInputMessage();
+		writer.println(message);
+		writer.flush();
 		
 	}
 
 //	public void run() throws Exception {
 //		setUpNetworking();
 //	}
+	public PrintWriter getChatWriter() {
+		return this.writer;
+	}
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -43,8 +50,10 @@ public class NChatClient extends Application implements Observer {
         primaryStage.setTitle("Chat");
         primaryStage.show();
 		this.chatWindowController = (NChatClientController) fxmlLoader.getController();
+		this.chatWindowController.setChatClient(this);
         try {
         	setUpNetworking();
+        	
         } catch (Exception e) {
         	e.printStackTrace();
         }
@@ -61,15 +70,6 @@ public class NChatClient extends Application implements Observer {
 		readerThread.start();
 	}
 
-	class SendButtonListener implements ActionListener {
-		// Use update from Obserbable
-		public void actionPerformed(ActionEvent ev) {
-			writer.println(outgoing.getText());
-			writer.flush();
-			outgoing.setText("");
-			outgoing.requestFocus();
-		}
-	}
 
 	public static void main(String[] args) {
 		launch(args);
@@ -82,9 +82,12 @@ public class NChatClient extends Application implements Observer {
 
 	class IncomingReader implements Runnable {
 		public void run() {
+			String message;
 			try {
-				while ((reader.readLine()) != null) {					
-						mainWindow.getChildren().get(1);
+				while ((message = reader.readLine()) != null) {	
+					TextArea mainDisplay = chatWindowController.getMainChatDisplay();			
+					mainDisplay.appendText(message + "\n");
+					String result = mainDisplay.getText();
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();

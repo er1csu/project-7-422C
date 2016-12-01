@@ -6,8 +6,10 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Observable;
+import java.util.Observer;
 
 public class NChatServer extends Observable {
+	
 	public static void main(String[] args) {
 		try {
 			new NChatServer().setUpNetworking();
@@ -28,6 +30,9 @@ public class NChatServer extends Observable {
 			System.out.println("got a connection");
 		}
 	}
+	
+	
+	
 	class ClientHandler implements Runnable {
 		private BufferedReader reader;
 

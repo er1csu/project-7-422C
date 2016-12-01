@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -16,6 +17,9 @@ import javafx.scene.text.TextFlow;
  *
  */
 public class NChatClientController implements javafx.fxml.Initializable {
+	
+	private Color chatColor;
+	
 	private NChatClient chatClient;
 	
     @FXML
@@ -30,18 +34,30 @@ public class NChatClientController implements javafx.fxml.Initializable {
     @FXML
     private TextField userNameInputField;
     
+    public TextArea getMainChatDisplay() {
+    	return this.mainChatDisplay;
+    }
+    
     public void setChatClient(NChatClient client) {
     	this.chatClient = client; 
     }
     
+    public String getChatInputMessage() {
+    	return this.chatInputField.getText();
+    }
+    
     public void sendMessage() {
-    	System.out.println("test");
+    	String messageText = this.chatInputField.getText();
+    	this.chatClient.getChatWriter().println(messageText);
+    	this.chatClient.getChatWriter().flush();
+    	this.chatInputField.setText("");
+    	this.chatInputField.requestFocus();
     }
 
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		
 
 		
 	}
