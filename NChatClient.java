@@ -41,6 +41,7 @@ public class NChatClient extends Application implements Observer {
 		FXMLLoader fxmlLoader = new FXMLLoader();
     	mainWindow = fxmlLoader.load(getClass().getResource("NChatClient.fxml").openStream());
         Scene scene1 = new Scene(mainWindow);
+//        scene1.getStylesheets().add("assignment7/styles.css");
         primaryStage.setScene(scene1);
         primaryStage.setTitle("Chat");
         primaryStage.show();

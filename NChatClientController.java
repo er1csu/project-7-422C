@@ -15,6 +15,7 @@ import javafx.scene.text.TextFlow;
 
 /**
  * Controller for the NChatClient.
+ * 
  * @author ericsu
  *
  */
@@ -78,6 +79,10 @@ public class NChatClientController implements javafx.fxml.Initializable {
     	this.chatInputField.requestFocus();
     }
     
+    public void setStyle() {
+		sendChatMessage.setStyle("-fx-background-color: rgb(14,122,254); -fx-text-fill: rgb(255,255,255);");
+	}
+    
     @FXML
     void launchAboutMenu(ActionEvent event) {
     	
@@ -87,13 +92,10 @@ public class NChatClientController implements javafx.fxml.Initializable {
     void quitClient(ActionEvent event) {
     	System.exit(0);
     }
-    
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-
-		
+		setStyle();
 	}
 
 }
